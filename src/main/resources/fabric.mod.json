@@ -2,18 +2,21 @@
   "schemaVersion": 1,
   "id": "godown",
   "version": "${version}",
+
   "name": "Go Down",
   "description": "On demand crawling.",
   "authors": [
-    "Liquidwarp"
+    "Liquidwarp",
+    "Francy-Chan"
   ],
   "contact": {
-    "homepage": "https://github.com/LiquidwarpMC/go-down",
-    "sources": "https://github.com/LiquidwarpMC/go-down",
-    "issues": "https://github.com/LiquidwarpMC/go-down/issues"
+    "homepage": "https://github.com/Francy-chan/go-down/",
+    "issues": "https://github.com/Francy-chan/go-down/issues"
   },
+
   "license": "MIT",
   "icon": "assets/godown/icon.png",
+
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -26,8 +29,18 @@
   "mixins": [
     "godown.mixins.json"
   ],
+
   "depends": {
-    "fabricloader": ">=0.7.2",
-    "fabric": "*"
+    "java": ">=${java_version}",
+    "minecraft": ">=${minecraft_version}",
+    "fabricloader": ">=${loader_version}",
+    "fabric": ">=${fabric_api}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "Ko-fi": "https://ko-fi.com/francy_chan"
+      }
+    }
   }
 }

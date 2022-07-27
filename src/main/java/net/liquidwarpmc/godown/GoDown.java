@@ -1,7 +1,7 @@
 package net.liquidwarpmc.godown;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -20,11 +20,10 @@ public class GoDown implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ServerSidePacketRegistry.INSTANCE.register(GODOWN_IDENTIFIER, (context, buf) -> {
+		ServerPlayNetworking.registerGlobalReceiver(GODOWN_IDENTIFIER, (server, player, handler, buf, responseSender) -> {
 			boolean val = buf.readBoolean();
-			context.getTaskQueue().execute(() -> context.getPlayer().getDataTracker().set(Shared.CRAWLING_REQUEST, val));
+			server.execute(() -> player.getDataTracker().set(Shared.CRAWLING_REQUEST, val));
 		});
-
 		LOGGER.info("[Go Down] initialized!");
 	}
 }

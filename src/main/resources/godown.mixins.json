@@ -1,9 +1,16 @@
 {
   "required": true,
+  "minVersion": "0.8",
   "package": "net.liquidwarpmc.godown.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": ["PlayerEntityMixin"],
-  "client": ["client.KeyboardInputMixin"],
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "PlayerEntityMixin"
+  ],
+  "client": [
+    "client.KeyboardInputMixin"
+  ],
+  "server": [
+  ],
   "injectors": {
     "defaultRequire": 1
   }

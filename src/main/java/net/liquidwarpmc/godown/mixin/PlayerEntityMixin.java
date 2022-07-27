@@ -19,19 +19,15 @@ public abstract class PlayerEntityMixin extends Entity {
         super(type, world);
     }
 
-    @Inject(method = "initDataTracker", at=@At("HEAD"))
+    @Inject(method = "initDataTracker", at = @At("HEAD"))
     public void onInitDataTracker(CallbackInfo ci) {
         getDataTracker().startTracking(GoDown.Shared.CRAWLING_REQUEST, false);
     }
 
-    @Redirect(method = "updateSize", at = @At(value = "INVOKE", target = "net/minecraft/entity/player/PlayerEntity.setPose(Lnet/minecraft/entity/EntityPose;)V", ordinal = 0), require = 1)
+    @Redirect(method = "updatePose", at = @At(value = "INVOKE", target = "net/minecraft/entity/player/PlayerEntity.setPose(Lnet/minecraft/entity/EntityPose;)V", ordinal = 0), require = 1)
     public void onPreSetPose(PlayerEntity player, EntityPose pose) {
-        boolean replaceSwimming = pose == EntityPose.SWIMMING && !player.isSwimming();
-        boolean crawl = player.getDataTracker().get(GoDown.Shared.CRAWLING_REQUEST) && !player.isSwimming();
-
-        if(crawl) {
+        if (player.getDataTracker().get(GoDown.Shared.CRAWLING_REQUEST) && !player.isSwimming())
             pose = EntityPose.SWIMMING;
-        }
 
         setPose(pose);
     }

@@ -1,35 +1,36 @@
 plugins {
-	id 'fabric-loom' version '0.4-SNAPSHOT'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
+java_version = project.java_version
 archivesBaseName = project.archives_base_name
-version = project.mod_version
+version = project.mod_version + "+" + project.minecraft_version
 group = project.maven_group
+fabric_api = project.fabric_api + "+" + String.valueOf(project.minecraft_version).split("-")[0]
 
-minecraft {
+repositories {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
-	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	minecraft "com.mojang:minecraft:$minecraft_version"
+ 	mappings "net.fabricmc:yarn:$yarn_mappings:v2"
+	modImplementation "net.fabricmc:fabric-loader:$loader_version"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_api"
 }
 
 processResources {
-	inputs.property "version", project.version
+	Map<String, Object> properties = new HashMap<>()
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
-		expand "version": project.version
-	}
+	properties.put("version", version)
+	properties.put("java_version", java_version)
+	properties.put("minecraft_version", String.valueOf(minecraft_version).split("-")[0] + "-")
+	properties.put("loader_version", loader_version)
+	properties.put("fabric_api", fabric_api)
 
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
+	properties.forEach((k, v) -> inputs.property(k, v.toString()))
+	filesMatching("fabric.mod.json") {
+		expand properties
 	}
 }
 
@@ -37,28 +38,12 @@ tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
-	from sourceSets.main.allSource
+java {
+	withSourcesJar()
 }
 
 jar {
-	from "LICENSE"
-}
-
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
-		}
-	}
-
-	repositories {
-		// mavenLocal()
+	from("LICENSE") {
+		rename { String.valueOf("$archivesBaseName").toUpperCase() + "_${it}"}
 	}
 }
