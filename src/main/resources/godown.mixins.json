@@ -7,6 +7,10 @@
     "PlayerEntityMixin"
   ],
   "client": [
+    "client.AccessibilityOptionsScreenMixin",
+    "client.ControlsOptionsScreenMixin",
+    "client.GameOptionsMixin",
+    "client.GameOptionsVisitorInvoker",
     "client.KeyboardInputMixin"
   ],
   "server": [
