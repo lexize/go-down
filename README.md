@@ -1,4 +1,2 @@
-# Go Down !
-On demand crawling. Uses FABRIC modloader.
-
-Uses parts from Crawl mod originally by Fewizz (https://github.com/fewizz/Crawl), then updated Chocohead and McSkinnerOG (https://github.com/FabricCommunity-Old/Crawl).
+# FranGo Forked!
+THIS IS A FORK FROM https://github.com/LiquidwarpMC/go-down maintained for newer releases of Minecraft
