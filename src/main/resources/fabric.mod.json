@@ -7,7 +7,8 @@
   "description": "On demand crawling.",
   "authors": [
     "Liquidwarp",
-    "Francy-Chan"
+    "Francy-Chan",
+    "Covkie"
   ],
   "contact": {
     "homepage": "https://github.com/Francy-chan/go-down/",
@@ -32,9 +33,9 @@
 
   "depends": {
     "java": ">=17",
-    "minecraft": ">=1.19.3",
+    "minecraft": ">=1.19.3-1.20.x",
     "fabricloader": ">=0.14.12",
-    "fabric": ">=0.84.0"
+    "fabric-api": "*"
   },
   "custom": {
     "modmenu": {
