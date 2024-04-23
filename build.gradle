@@ -9,6 +9,10 @@ version = project.mod_version + "+" + project.minecraft_version
 group = project.maven_group
 fabric_api = project.fabric_api + "+" + String.valueOf(project.minecraft_version).split("-")[0]
 
+loom {
+	accessWidenerPath = file("src/main/resources/godown.accesswidener")
+}
+
 repositories {
 }
 

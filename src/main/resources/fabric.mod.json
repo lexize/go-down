@@ -7,12 +7,12 @@
   "description": "On demand crawling.",
   "authors": [
     "Liquidwarp",
-    "Francy-Chan",
-    "Covkie"
+    "Covkie",
+    "Lexize"
   ],
   "contact": {
-    "homepage": "https://github.com/Francy-chan/go-down/",
-    "issues": "https://github.com/Francy-chan/go-down/issues"
+    "homepage": "https://github.com/lexize/go-down/",
+    "issues": "https://github.com/lexize/go-down/issues"
   },
 
   "license": "MIT",
@@ -36,12 +36,5 @@
     "minecraft": ">=1.19.3-1.20.x",
     "fabricloader": ">=0.14.12",
     "fabric-api": "*"
-  },
-  "custom": {
-    "modmenu": {
-      "links": {
-        "Ko-fi": "https://ko-fi.com/francy_chan"
-      }
-    }
   }
 }

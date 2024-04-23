@@ -1,16 +1,15 @@
 package net.liquidwarpmc.godown.mixin.client;
 
 import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.liquidwarpmc.godown.GoDown;
 import net.liquidwarpmc.godown.GoDownClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.input.KeyboardInput;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,15 +28,9 @@ public class KeyboardInputMixin extends Input {
         boolean isCrawling = player.getPose() == EntityPose.SWIMMING;
 
         if (wannaCrawl != isCrawling) {
-            ClientPlayNetworkHandler handler = MinecraftClient.getInstance().getNetworkHandler();
-            if (handler == null)
-                return;
-
-            handler.sendPacket(
-                new CustomPayloadC2SPacket(GoDown.GODOWN_IDENTIFIER, new PacketByteBuf(Unpooled.wrappedBuffer(new byte[] {
-                        (byte) (wannaCrawl ? 1 : 0)
-                })))
-            );
+            ClientPlayNetworking.send(GoDown.GODOWN_IDENTIFIER, new PacketByteBuf(Unpooled.wrappedBuffer(new byte[] {
+                    (byte) (wannaCrawl ? 1 : 0)
+            })));
             player.getDataTracker().set(GoDown.Shared.CRAWLING_REQUEST, wannaCrawl);
         }
     }
